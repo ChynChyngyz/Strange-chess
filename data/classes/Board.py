@@ -40,12 +40,9 @@ class Board:
             for x in range(8):
                 output.append(
                     Square(
-                        x,
-                        y,
-                        self.square_width,
-                        self.square_height
+                        x, y,
+                        self.square_width, self.square_height)
                     )
-                )
 
         return output
 
@@ -70,7 +67,6 @@ class Board:
 
                     elif piece[1] == 'D':
                         piece_instance = Dragon((x, y), 'white' if piece[0] == 'w' else 'black', self)
-                       #  piece_instance = Duck((x, y), 'white' if piece[0] == 'w' else 'black', self)
 
                     elif piece[1] == 'Q':
                         piece_instance = Queen((x, y), 'white' if piece[0] == 'w' else 'black', self)
@@ -101,7 +97,7 @@ class Board:
             if clicked_square.occupying_piece.color == self.turn:
                 self.selected_piece = clicked_square.occupying_piece
 
-    def is_in_check(self, color, board_change=None):  # board_change = [(x1, y1), (x2, y2)]
+    def is_in_check(self, color, board_change=None):
         output = False
         king_pos = None
 

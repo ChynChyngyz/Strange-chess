@@ -16,14 +16,10 @@ class King(Piece):
     def get_possible_moves(self, board):
         output = []
         moves = [
-            (0, -1),
-            (1, -1),
-            (1, 0),
-            (1, 1),
-            (0, 1),
-            (-1, 1),
-            (-1, 0),
-            (-1, -1),
+            (0, -1), (1, -1),
+            (1, 0), (1, 1),
+            (0, 1), (-1, 1),
+            (-1, 0), (-1, -1),
         ]
 
         for move in moves:
@@ -32,9 +28,7 @@ class King(Piece):
                     (new_pos[0] < 8) and (new_pos[0] >= 0) and (new_pos[1] < 8) and (new_pos[1] >= 0)
             ):
                 output.append([
-                    board.get_square_from_pos(
-                        new_pos
-                    )
+                    board.get_square_from_pos(new_pos)
                 ])
 
         return output

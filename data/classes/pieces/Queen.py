@@ -81,4 +81,3 @@ class Queen(Piece):
 		output.append(moves_nw)
 
 		return output
-

@@ -32,10 +32,4 @@ while running:
         print('Black wins!')
         running = False
 
-    # for piece in board.pieces:
-    #     if isinstance(piece, Nuclear):
-    #         if piece.eat_nuclear(board):
-    #             running = False
-    #             break
-
     draw(screen)

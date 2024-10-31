@@ -6,15 +6,13 @@ class Dragon(Piece):
     def __init__(self, pos, color, board):
         super().__init__(pos, color, board)
 
-        img_path = 'data/images/' + color[0] + '_dragon.png'  # Path to dragon image
+        img_path = 'data/images/' + color[0] + '_dragon.png'
         self.img = pygame.image.load(img_path)
-        self.img = pygame.transform.scale(self.img, (board.square_width - 10, board.square_height - 10))
+        self.img = pygame.transform.scale(self.img, (board.square_width - 5, board.square_height - 5))
 
-        self.notation = 'D'  # Notation for the dragon
+        self.notation = 'D'
 
     def get_possible_moves(self, board):
-        output = []
-        # Define the relative moves of the Dragon
         moves = [
             (0, -1), (0, -2), (1, -2),
             (1, -1), (2, -2), (-2, 1),
@@ -26,7 +24,6 @@ class Dragon(Piece):
             (-1, -1), (-2, -2), (-1, 2),
         ]
 
-        # Generate new positions and check if they are valid
         output = [
             [board.get_square_from_pos((self.x + dx, self.y + dy))]
             for dx, dy in moves

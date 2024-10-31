@@ -5,6 +5,7 @@ class Piece:
 		self.x = pos[0]
 		self.y = pos[1]
 		self.color = color
+		self.board = board
 		self.has_moved = False
 
 	def move(self, board, square, force=False):
@@ -68,3 +69,10 @@ class Piece:
 
 	def attacking_squares(self, board):
 		return self.get_moves(board)
+
+	"""
+		Чтобы не было ошибки Unresolved attribute reference 'get_possible_moves' for class 'Piece',
+		а то некрасиво (Нужно, чтобы было красиво)
+	"""
+	def get_possible_moves(self, board):
+		pass

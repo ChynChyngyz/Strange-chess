@@ -13,7 +13,6 @@ class Pawn(Piece):
 
 		self.notation = ' '
 
-
 	def get_possible_moves(self, board):
 		output = []
 		moves = []
@@ -31,18 +30,17 @@ class Pawn(Piece):
 
 		for move in moves:
 			new_pos = (self.x, self.y + move[1])
-			if new_pos[1] < 8 and new_pos[1] >= 0:
+			if (new_pos[1] < 8) and (new_pos[1] >= 0):
 				output.append(
 					board.get_square_from_pos(new_pos)
 				)
 
 		return output
 
-
 	def get_moves(self, board):
 		output = []
 		for square in self.get_possible_moves(board):
-			if square.occupying_piece != None:
+			if square.occupying_piece is not None:
 				break
 			else:
 				output.append(square)
@@ -52,14 +50,14 @@ class Pawn(Piece):
 				square = board.get_square_from_pos(
 					(self.x + 1, self.y - 1)
 				)
-				if square.occupying_piece != None:
+				if square.occupying_piece is not None:
 					if square.occupying_piece.color != self.color:
 						output.append(square)
 			if self.x - 1 >= 0 and self.y - 1 >= 0:
 				square = board.get_square_from_pos(
 					(self.x - 1, self.y - 1)
 				)
-				if square.occupying_piece != None:
+				if square.occupying_piece is not None:
 					if square.occupying_piece.color != self.color:
 						output.append(square)
 
@@ -68,14 +66,14 @@ class Pawn(Piece):
 				square = board.get_square_from_pos(
 					(self.x + 1, self.y + 1)
 				)
-				if square.occupying_piece != None:
+				if square.occupying_piece is not None:
 					if square.occupying_piece.color != self.color:
 						output.append(square)
 			if self.x - 1 >= 0 and self.y + 1 < 8:
 				square = board.get_square_from_pos(
 					(self.x - 1, self.y + 1)
 				)
-				if square.occupying_piece != None:
+				if square.occupying_piece is not None:
 					if square.occupying_piece.color != self.color:
 						output.append(square)
 
@@ -83,6 +81,4 @@ class Pawn(Piece):
 
 	def attacking_squares(self, board):
 		moves = self.get_moves(board)
-		# return the diagonal moves 
 		return [i for i in moves if i.x != self.x]
-
