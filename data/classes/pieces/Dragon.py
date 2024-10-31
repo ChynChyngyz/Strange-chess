@@ -7,10 +7,18 @@ class Dragon(Piece):
         super().__init__(pos, color, board)
 
         img_path = 'data/images/' + color[0] + '_dragon.png'
+        self.lives = 2
         self.img = pygame.image.load(img_path)
         self.img = pygame.transform.scale(self.img, (board.square_width - 5, board.square_height - 5))
 
         self.notation = 'D'
+
+    def take_damage(self):
+        self.lives -= 1
+        print(f'Lives {self.lives}')
+        if self.lives <= 0:
+            return True
+        return False
 
     def get_possible_moves(self, board):
         moves = [

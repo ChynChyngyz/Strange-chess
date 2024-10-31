@@ -4,24 +4,47 @@ class Piece:
 		self.pos = pos
 		self.x = pos[0]
 		self.y = pos[1]
-		self.color = color
 		self.board = board
+		self.color = color
 		self.has_moved = False
 
 	def move(self, board, square, force=False):
-
 		for i in board.squares:
 			i.highlight = False
 
-		if square in self.get_valid_moves(board) or force:
-			prev_square = board.get_square_from_pos(self.pos)
-			self.pos, self.x, self.y = square.pos, square.x, square.y
+		from data.classes.pieces.Dragon import Dragon
+		attacked_piece = square.occupying_piece
+		print(attacked_piece)
 
+		if attacked_piece is not None and attacked_piece.color == self.color:
+			print("Cannot attack an allied piece")
+			board.selected_piece = None
+			return False
+
+		prev_square = board.get_square_from_pos(self.pos)
+
+		if isinstance(attacked_piece, Dragon):
+			if attacked_piece.take_damage():
+				print(f'Dragon defeated: {attacked_piece}')
+				board.remove_piece(attacked_piece)
+				square.occupying_piece = self
+				prev_square.occupying_piece = None
+			else:
+				print(f'Dragon injured: {attacked_piece}')
+				self.pos, self.x, self.y = prev_square.pos, prev_square.x, prev_square.y
+				self.has_moved = True
+				board.switch(square)
+				return False
+
+		else:
+			square.occupying_piece = attacked_piece
+
+		if square in self.get_valid_moves(board) or force:
+			self.pos, self.x, self.y = square.pos, square.x, square.y
 			prev_square.occupying_piece = None
 			square.occupying_piece = self
 			board.selected_piece = None
 			self.has_moved = True
-
 			if self.notation == ' ':
 				if self.y == 0 or self.y == 7:
 					from data.classes.pieces.Queen import Queen
@@ -31,6 +54,7 @@ class Piece:
 						board
 					)
 
+			# Логика рокировки
 			if self.notation == 'K':
 				if prev_square.x - self.x == 2:
 					rook = board.get_piece_from_pos((0, self.y))

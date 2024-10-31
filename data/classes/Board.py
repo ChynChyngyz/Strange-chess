@@ -40,9 +40,12 @@ class Board:
             for x in range(8):
                 output.append(
                     Square(
-                        x, y,
-                        self.square_width, self.square_height)
+                        x,
+                        y,
+                        self.square_width,
+                        self.square_height
                     )
+                )
 
         return output
 
@@ -97,7 +100,7 @@ class Board:
             if clicked_square.occupying_piece.color == self.turn:
                 self.selected_piece = clicked_square.occupying_piece
 
-    def is_in_check(self, color, board_change=None):
+    def is_in_check(self, color, board_change=None):  # board_change = [(x1, y1), (x2, y2)]
         output = False
         king_pos = None
 
@@ -141,6 +144,11 @@ class Board:
             new_square.occupying_piece = new_square_old_piece
 
         return output
+
+    def switch(self, square):
+        attacked_piece = square.occupying_piece
+        if isinstance(attacked_piece, Dragon):
+            self.turn = 'black' if self.turn == 'white' else 'white'
 
     def is_in_checkmate(self, color):
         global king
