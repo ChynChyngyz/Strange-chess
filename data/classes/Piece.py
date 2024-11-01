@@ -13,6 +13,7 @@ class Piece:
 			i.highlight = False
 
 		from data.classes.pieces.Dragon import Dragon
+		from data.classes.pieces.Nuclear import Nuclear
 		attacked_piece = square.occupying_piece
 		print(attacked_piece)
 
@@ -23,11 +24,20 @@ class Piece:
 
 		prev_square = board.get_square_from_pos(self.pos)
 
+		if isinstance(attacked_piece, Nuclear):
+			if attacked_piece.eat_nuclear():
+				print("It's a draw!")
+				board.game_result = "draw"
+				return True
+		else:
+			square.occupying_piece = attacked_piece
+
 		if isinstance(attacked_piece, Dragon):
 			if attacked_piece.take_damage():
 				print(f'Dragon defeated: {attacked_piece}')
 				board.remove_piece(attacked_piece)
 				square.occupying_piece = self
+				board.switch(square)
 				prev_square.occupying_piece = None
 			else:
 				print(f'Dragon injured: {attacked_piece}')

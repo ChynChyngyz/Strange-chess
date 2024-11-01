@@ -1,4 +1,5 @@
 from data.classes.Square import Square
+from data.classes.pieces.Nuclear import Nuclear
 from data.classes.pieces.Rook import Rook
 from data.classes.pieces.Duck import Duck
 from data.classes.pieces.Bishop import Bishop
@@ -11,6 +12,7 @@ from data.classes.pieces.Pawn import Pawn
 
 class Board:
     def __init__(self, width, height):
+        self.game_result = None
         self.width = width
         self.height = height
         self.pieces = []
@@ -21,12 +23,12 @@ class Board:
 
         self.config = [
             ['bR', 'bG', 'bB', 'bQ', 'bK', 'bD', 'bN', 'bR'],
-            ['b ', 'b ', 'b ', 'b ', 'b ', 'b ', 'b ', 'b '],
+            ['b ', 'b ', 'b ', 'b ', 'b ', 'b ', 'b ', 'bA'],
             ['', '', '', '', '', '', '', ''],
             ['', '', '', '', '', '', '', ''],
             ['', '', '', '', '', '', '', ''],
             ['', '', '', '', '', '', '', ''],
-            ['w ', 'w ', 'w ', 'w ', 'w ', 'w ', 'w ', 'w '],
+            ['w ', 'w ', 'w ', 'w ', 'w ', 'w ', 'w ', 'wA'],
             ['wR', 'wG', 'wB', 'wQ', 'wK', 'wD', 'wN', 'wR'],
         ]
 
@@ -64,6 +66,9 @@ class Board:
 
                     elif piece[1] == 'B':
                         piece_instance = Bishop((x, y), 'white' if piece[0] == 'w' else 'black', self)
+
+                    elif piece[1] == 'A':
+                        piece_instance = Nuclear((x, y), 'white' if piece[0] == 'w' else 'black', self)
 
                     elif piece[1] == 'G':
                         piece_instance = Duck((x, y), 'white' if piece[0] == 'w' else 'black', self)

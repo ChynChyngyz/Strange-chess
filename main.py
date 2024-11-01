@@ -1,4 +1,4 @@
-import pygame
+import pygame, os
 from data.classes.Board import Board
 
 pygame.init()
@@ -30,6 +30,10 @@ while running:
         running = False
     elif board.is_in_checkmate('white'):
         print('Black wins!')
+        running = False
+    if board.game_result == "draw":
+        print("The game ends in a draw!")
+        os.startfile("C:\\Users\\Victus\\Desktop\\Царь Бомба _ Tsar Bomba (HD) ( звук).mp4")
         running = False
 
     draw(screen)
